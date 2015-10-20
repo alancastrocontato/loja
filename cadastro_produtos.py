@@ -40,36 +40,25 @@ quantidade INTEGER NOT NULL)''')
 tabela()
 
 
-class Modafeminina:
+class Moda:
     def __init__ (self):
-        self.roupas = ['Blusas','Calça Jeans','Calças','Camisas','Casacos e Jaquetas',
+        self.feminina = ['Blusas','Calça Jeans','Calças','Camisas','Casacos e Jaquetas',
                          'Lingerie','Malhas e Sueters','Moda Praia','Saias',
                          'Shorts','Vestidos','Moletom','Macaquinhos e Macacões',
                          'Plus Size','Pijamas e Camisolas','Meias',]
-
-class Modamasculina:
-    def __init__ (self):
-        self.roupas = ['Bermudas','Calças Casuais','Calças Jeans','Calças Sociais',
+        self.masculina = ['Bermudas','Calças Casuais','Calças Jeans','Calças Sociais',
                       'Camisas','Camisetas','Casacos e Jaquetas','Malhas e Sueters',
                       'Ternos','Moletons','Underwear','Pijamas e Kits',
                       'Meias','Moda Praia','Plus Size']
-
-
-class Modamasculina_infantil:
-    def __init__ (self):
-        self.idades = ['Baby','Kids','Teens']
-        self.roupas = ['Blusas e Camisas','Casacos e Jaquetas','Malhas e Suetes',
+        self.masculinainfantil =['Blusas e Camisas','Casacos e Jaquetas','Malhas e Suetes',
                       'Calças','Bermudas e Shorts','Macacão e Macaquinho','Conjunto',
                       'fantasias','Pijamas','Moda Praia','Meias','Underwear']
-
-
-class Modafeminina_infantil:
-     def __init__ (self):
-         self.idade = ['Baby','Kids','Teens']
-         self.roupas = ['Blusas e Camisas','Casacos e Jaquetas','Malhas e Suetes',
+        self.femininainfantil = ['Blusas e Camisas','Casacos e Jaquetas','Malhas e Suetes',
                       'Calças','Bermudas e Shorts','Macacão e Macaquinho','Conjunto',
                       'fantasias','Pijamas','Moda Praia','Meias','Underwear',
                       'Enxoval','Jardineira e Salopete','Vestidos e Saias']
+        self.idades = ['Bebes','Crianças','Adolescentes','Adultos']
+
 
 def menu_principal():
     print('')
@@ -80,31 +69,31 @@ def menu_principal():
     print('[3] para moda masculina infantil')
     print('[4] para moda feminmina infantil')
 
-def escolhemoda():
+def escolheremoda():
     loop = True
-    while loop == True:
-        escolhemoda = (input('Digite um número:'))
-        if escolhemoda.isdigit():
-            escolhemoda = int(escolhemoda)
-            if escolhemoda == 1:
-                escolhamodamasculina()
+    while loop:
+        selecionar = (input('Digite um número:'))
+        if selecionar.isdigit():
+            selecionar = int(selecionar)
+            if selecionar == 1:
+                escolhermodamasculina()
                 break
-            elif escolhemoda <=0 or escolhemoda >4:
-                print('vc escolheu um numero incorreto')
+            elif selecionar <=0 or selecionar >4:
+                print('vcocê escolheu um numero incorreto')
 
-        elif escolhemoda.isalpha():
-            print('não digite letras')
+        elif selecionar.isalpha():
+            print('Não digite letras')
 
-def escolhamodamasculina():
+def escolhermodamasculina():
     loop = True
-    while loop == True:
+    while loop:
         print('Listando roupas')
-        moda = Modamasculina()
+        moda = Moda()
         for item in range(14):
             item += 1
-            print('Cod %s: %s'%(item,moda.roupas[item]))
+            print('Cod %s: %s'%(item,moda.masculina[item]))
         cod = int(input('Escolha um código:'))
-        roupa = moda.roupas[cod]
+        roupa = moda.masculina[cod]
         tamanho = input('Digite um tamanho para o item [%s]:'%roupa)
         tamanho = tamanho
         cor = input('Digite uma cor para o item [%s]:'%roupa)
@@ -128,7 +117,7 @@ def escolhamodamasculina():
                     escolhemoda()
                 elif decisao in 'N' or decisao in 'n':
                     menu_principal()
-                    escolhemoda()
+                    escolheremoda()
                 else:
                     print('Essa opção não existe')
             elif decisao.isdigit():
@@ -136,5 +125,5 @@ def escolhamodamasculina():
 
 
 menu_principal()
-escolhemoda()
-escolhamodamasculina()
+escolheremoda()
+escolhermodamasculina()

@@ -84,6 +84,30 @@ def escolheremoda():
         elif selecionar.isalpha():
             print('Não digite letras')
 
+def validar_strings(nome,tipo):
+    loop = True
+    while loop:
+        nome = input('Defina um ou uma {} para {}:'.format(nome,tipo))
+        if nome.isalpha():
+            nome = nome
+            break
+        elif nome.isdigit():
+            print('Não digite  números')
+        else:
+            print('Só digite letras')
+
+def validar_numeros(nome,tipo):
+    loop = True
+    while loop:
+        nome = input('Defina um ou uma {} para {}:'.format(nome,tipo))
+        if nome.isdigit():
+            nome = nome
+            break
+        elif nome.isalpha():
+            print('Não digite  letras')
+        else:
+            print('Só digite números')
+
 def escolhermodamasculina():
     loop = True
     while loop:
@@ -93,18 +117,15 @@ def escolhermodamasculina():
             item += 1
             print('Cod %s: %s'%(item,moda.masculina[item]))
         cod = int(input('Escolha um código:'))
+
         roupa = moda.masculina[cod]
-        tamanho = input('Digite um tamanho para o item [%s]:'%roupa)
-        tamanho = tamanho
-        cor = input('Digite uma cor para o item [%s]:'%roupa)
-        cor = cor
-        marca = input('Digite uma marca para o item[%s]'%roupa)
-        marca = marca
-        preco = float(input('Digite um preço para o item[%s]'%roupa))
-        preco = preco
-        quantidade = int(input('Digite uma quantidade em estoque para o item[%s]'%roupa))
-        quantidade = quantidade
-        print('Roupa:%s \nCor:%s \nMarca:%s \nTamanho:%s \nPreço: R$%1.2f \nQuantidade:%i'%(roupa,cor,marca,tamanho,preco,quantidade))
+        validar_numeros('tamanho',roupa)
+        validar_strings('cor',roupa)
+        validar_strings('marca',roupa)
+        validar_numeros('preço',roupa)
+        validar_numeros('quantidade',roupa)
+
+        print('Roupa:{}\nCor:{}\nMarca:{}\nTamanho:{}\nPreço:R%:{}\nQuantidade:{}'.format(roupa,cor,marca,tamanho,preco,quantidade))
         loop = True
         while loop == True:
             decisao = input('Quer cadastrar o item acima?[S/N]')

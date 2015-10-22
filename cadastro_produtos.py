@@ -87,11 +87,11 @@ def escolheremoda():
 def validar_strings(nome,tipo):
     loop = True
     while loop:
-        nome = input('Defina um ou uma {} para {}:'.format(nome,tipo))
-        if nome.isalpha():
+        entrada = input('Defina um ou uma {} para {}:'.format(nome,tipo))
+        if entrada.isalpha():
             nome = nome
             break
-        elif nome.isdigit():
+        elif entrada.isdigit():
             print('Não digite  números')
         else:
             print('Só digite letras')
@@ -99,11 +99,11 @@ def validar_strings(nome,tipo):
 def validar_numeros(nome,tipo):
     loop = True
     while loop:
-        nome = input('Defina um ou uma {} para {}:'.format(nome,tipo))
-        if nome.isdigit():
+        entrada = input('Defina um ou uma {} para {}:'.format(nome,tipo))
+        if entrada.isdigit():
             nome = nome
             break
-        elif nome.isalpha():
+        elif entrada.isalpha():
             print('Não digite  letras')
         else:
             print('Só digite números')

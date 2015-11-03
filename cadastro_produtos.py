@@ -60,16 +60,17 @@ class Moda:
         self.idades = ['Bebes','Crianças','Adolescentes','Adultos']
 
 
-def menu_principal():
-    print('')
-    print('########Menu Principal########')
-    print('')
-    print('[1] para moda masculina')
-    print('[2] para moda feminina')
-    print('[3] para moda masculina infantil')
-    print('[4] para moda feminmina infantil')
 
-def escolheremoda():
+def escolher_moda():
+    print('\n')
+    print('*****************Menu Principal*****************')
+    print('**                                            **')
+    print('**         [1] Moda Masculina                 **')
+    print('**         [2] Moda Feminina                  **')
+    print('**         [3] Moda Masculina Infantil        **')
+    print('**         [4] Moda Feminmina Infantil        **')
+    print('**                                            **')
+    print('************************************************')
     loop = True
     while loop:
         selecionar = (input('Digite um número:'))
@@ -85,66 +86,65 @@ def escolheremoda():
             print('Não digite letras')
 
 def validar_strings(nome,tipo):
-    loop = True
-    while loop:
+    while True:
         entrada = input('Defina um ou uma {} para {}:'.format(nome,tipo))
         if entrada.isalpha():
-            nome = nome
-            break
+            return entrada
         elif entrada.isdigit():
             print('Não digite  números')
         else:
             print('Só digite letras')
 
 def validar_numeros(nome,tipo):
-    loop = True
-    while loop:
+    while True:
         entrada = input('Defina um ou uma {} para {}:'.format(nome,tipo))
         if entrada.isdigit():
-            nome = nome
-            break
+            return entrada
         elif entrada.isalpha():
             print('Não digite  letras')
         else:
             print('Só digite números')
 
 def escolhermodamasculina():
-    loop = True
-    while loop:
+    while True:
         print('Listando roupas')
         moda = Moda()
-        for item in range(14):
-            item += 1
-            print('Cod %s: %s'%(item,moda.masculina[item]))
-        cod = int(input('Escolha um código:'))
+        for item in range(0,14,1):
+            print('Cod {}: {}'.format(item,moda.masculina[item]))
+        while True:
+            cod = input('Escolha um código:')
+            if cod.isdigit():
+                cod = int(cod)
+                if cod >= 0 and cod <=13:
+                    cod = cod
+                    roupa = moda.masculina[cod]
+                    tamanho = validar_numeros('tamanho',roupa)
+                    cor = validar_strings('cor',roupa)
+                    marca = validar_strings('marca',roupa)
+                    preco = validar_numeros('preço',roupa)
+                    quantidade = validar_numeros('quantidade',roupa)
+                    print('Roupa:{}\nCor:{}\nMarca:{}\nTamanho:{}\nPreço:R${}\nQuantidade:{}'.format(roupa,cor,marca,tamanho,preco,quantidade))
+                    while True:
+                        decisao = input('Quer cadastrar o item acima?[S/N]')
+                        if decisao.isalpha():
+                            if decisao in 'S' or decisao in 's':
+                                cursor.execute(''' insert into modamasculina(roupa,tamanho,cor,marca,preco,quantidade) values(?,?,?,?,?,?)''',(roupa,tamanho,cor,marca,preco,quantidade))
+                                conexao.commit()
+                                print('CADASTRADO COM SUCESSO')
+                                return escolher_moda()
+                            elif decisao in 'N' or decisao in 'n':
+                                return escolher_moda()
+                            else:
+                                print('Essa opção não existe')
+                        elif decisao.isdigit():
+                            print('Não pode conter digitos')
+                elif cod <0 or cod >13:
+                    print('Código inexistente')
+            elif cod.isalpha:
+                print('Não use letras')
+            else:
+                print('Só use dígitos')
 
-        roupa = moda.masculina[cod]
-        validar_numeros('tamanho',roupa)
-        validar_strings('cor',roupa)
-        validar_strings('marca',roupa)
-        validar_numeros('preço',roupa)
-        validar_numeros('quantidade',roupa)
-
-        print('Roupa:{}\nCor:{}\nMarca:{}\nTamanho:{}\nPreço:R%:{}\nQuantidade:{}'.format(roupa,cor,marca,tamanho,preco,quantidade))
-        loop = True
-        while loop == True:
-            decisao = input('Quer cadastrar o item acima?[S/N]')
-            if decisao.isalpha():
-                if decisao in 'S' or decisao in 's':
-                    cursor.execute(''' insert into modamasculina(roupa,tamanho,cor,marca,preco,quantidade) values(?,?,?,?,?,?)''',(moda.roupas[cod],tamanho,cor,marca,preco,quantidade))
-                    conexao.commit()
-                    print('CADASTRADO COM SUCESSO')
-                    menu_principal()
-                    escolhemoda()
-                elif decisao in 'N' or decisao in 'n':
-                    menu_principal()
-                    escolheremoda()
-                else:
-                    print('Essa opção não existe')
-            elif decisao.isdigit():
-                print('Não pode conter digitos')
 
 
-menu_principal()
-escolheremoda()
-escolhermodamasculina()
+escolher_moda()
